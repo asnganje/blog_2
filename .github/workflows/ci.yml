@@ -49,7 +49,7 @@ jobs:
         with:
           ruby-version: 3.3.7
           bundler-cache: true
-      - name: Ensure binstubs are executable
+      - name: Fix permissions for RuboCop
         run: chmod +x bin/rubocop
 
       - name: Lint code for consistent style
