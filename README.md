@@ -22,7 +22,7 @@
 
 # Blog-App <a name="about-project"></a>
 
-**Blog-app** A Ruby on Rails app for managing blogs.
+**Blog-app** A Ruby on Rails blog application enabling users to create posts, leave comments, and engage with content through likes. It features a seamless user experience with interactive functionalities for dynamic content engagement.
 
 
 ## 🛠 Built With <a name="built-with"></a>
