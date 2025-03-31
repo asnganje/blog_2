@@ -1,0 +1,19 @@
+<h2>User Posts Listings</h2><br/>
+<div>
+  <img src="#" alt="user">
+  <p><%= @user.name %> Number of posts: <%= @user.posts_counter%></p>
+</div>
+<div>
+  <% @posts.each do |post| %>
+      <div>
+        <h3><%= link_to post.title, user_post_path(post.author, post)%><h3>
+        <h4><%= post.text %><h3>
+        <h6>Comments: <%=post.comments_counter%> Likes: <%=post.likes_counter%></h6>
+      </div>
+      <div>
+        <%post.comments.each do |comment| %>
+        <p><%=comment.user.name%>: <%=comment.text%></p>
+        <%end%>
+      </div>
+  <% end %>
+</div>

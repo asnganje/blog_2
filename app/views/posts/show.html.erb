@@ -1,0 +1,14 @@
+<h2>Post details</h2>
+<div>
+  <img src="#" alt="user">
+  <p><%= @post.title %> by <%= @post.author.name %></p>
+  <h6>Comments: <%=@post.comments_counter%> Likes: <%=@post.likes_counter%></h6>
+</div>
+<div>
+  <p><%=@post.text%></p>
+</div>
+<div>
+  <%@post.comments.each do |comment|%>
+    <p><%=comment.user.name%>: <%=comment.text%></p>
+  <%end%>
+</div>
