@@ -1,14 +1,15 @@
 <h2>Post details</h2>
-<div>
-  <img src="#" alt="user">
-  <p><%= @post.title %> by <%= @post.author.name %></p>
-  <h6>Comments: <%=@post.comments_counter%> Likes: <%=@post.likes_counter%></h6>
-</div>
-<div>
-  <p><%=@post.text%></p>
-</div>
-<div>
-  <%@post.comments.each do |comment|%>
-    <p><%=comment.user.name%>: <%=comment.text%></p>
-  <%end%>
-</div>
+<div class="card">
+  <div class="d-flex justify-content-between">
+    <h4><%= @post.title %> by <%= @post.author.name %></h4>
+    <h6 class="text-muted">Comments: <%=@post.comments_counter%> Likes: <%=@post.likes_counter%></h6>
+  </div>
+  <div>
+    <p><%=@post.text%></p>
+  </div>
+</div> 
+  <div class="card mt-1">
+    <%@post.comments.each do |comment|%>
+      <p><%=comment.user.name%>: <%=comment.text%></p>
+    <%end%>
+  </div>
