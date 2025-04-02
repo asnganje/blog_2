@@ -1,0 +1,28 @@
+
+<h3>Add a new Post</h3>
+<%=form_with(model:@post, url: user_posts_path(current_user.id), class:"col-9") do |form| %>
+  <div class="text-danger">
+    <% if @post.errors.any?%>
+    <h3>The following <%= pluralize(@post.errors.count, 'errors')%> prevented adding the post!</h3>
+        <ul>
+          <%=@post.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+      </ul>
+    <%end%>
+  </div>
+  <div class="form-group mb-3">
+    <%=form.label :title, class:"form-label fs-5" %>
+    <%=form.text_field :title, placeholder:"Title", class:"form-control" %>
+  </div>
+  <div class="form-group mb-3">
+    <%=form.label :text, class:"form-label fs-5"%>
+    <%=form.text_area :text, placeholder: "Write your post here...", class:"form-control", rows:5 %>
+  </div>
+  <div>
+    <%=form.hidden_field :author_id, value: current_user.id %>
+  </div>
+  <div class="mt-4">
+  <%= form.submit class: "btn btn-primary w-20"%>
+  </div>
+<% end %>
