@@ -1,17 +1,24 @@
 <h2>User Posts Listings</h2><br/>
-<div>
-  <img src="#" alt="user">
-  <p><%= @user.name %> Number of posts: <%= @user.posts_counter%></p>
+<div class="card f-flex flex-row w-100">
+  <div class="w-33" style="flex: 1; overflow: hidden;">
+    <img src="..." class="card-img-top" alt="..." style="width: 100%; height: auto;">
+  </div>
+  <div class="card-body d-flex flex-column justify-content-between h-100" style="width: 66.66%; padding: 1rem;">
+    <h5 class="card-title">
+      <p class="text-decoration-none fs-4 fw-bold"><%=@user.name%></p>
+    </h5>
+    <h6 class="text-end text-muted"><%= link_to "Number of Posts", user_posts_path(@user) %>: <%=@user.posts_counter %></h6>
+  </div>
 </div>
 <div>
   <% @posts.each do |post| %>
-      <div>
+      <div class="card mt-1 mb-1">
         <h3><%= link_to post.title, user_post_path(post.author, post)%><h3>
         <h4><%= post.text %><h3>
-        <h6>Comments: <%=post.comments_counter%> Likes: <%=post.likes_counter%></h6>
+        <h6 class="text-end text-muted">Comments: <%=post.comments_counter%> Likes: <%=post.likes_counter%></h6>
       </div>
-      <div>
         <%post.comments.each do |comment| %>
+      <div class="card mt-1 mb-1">
         <p><%=comment.user.name%>: <%=comment.text%></p>
         <%end%>
       </div>
