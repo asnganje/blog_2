@@ -66,3 +66,5 @@ group :test do
 end
 
 gem "dotenv-rails", groups: [ :development, :test ]
+
+gem "cssbundling-rails", "~> 1.4"

@@ -1,7 +1,7 @@
 <h2>Users Posts Listings</h2><br/>
 <div>
   <% @users.each do |user| %>
-    <div style="display:flex">
+    <div>
       <img src="#" alt="user">
       <p><%=link_to user.name, user_path(user)%> <span> 'Number of Posts:'<%=user.posts_counter %></span></p>
     </div>

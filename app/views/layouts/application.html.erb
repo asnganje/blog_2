@@ -22,7 +22,8 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
+  <body class="container">
+    <%= render 'layouts/navigation' %>
     <%= yield %>
   </body>
 </html>
