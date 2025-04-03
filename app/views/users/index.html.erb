@@ -1,4 +1,7 @@
-<h1>Users List</h1>
+<div class="d-flex justify-content-between">
+  <h1>Users List</h1>
+  <%=link_to "New post", new_user_post_path(current_user.id)%>
+</div>
 <div>
   <% @users.each do |user| %>
   <div class="card f-flex flex-row w-100">
