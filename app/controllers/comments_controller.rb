@@ -8,7 +8,7 @@ class CommentsController < ApplicationController
         if @comment.save
           format.html { redirect_to user_post_path(@user, @post), notice: "Comment created successfully" }
         else
-          render @post, status: :unprocessable_entity
+          render "posts/show", status: :unprocessable_entity
         end
       end
   end
