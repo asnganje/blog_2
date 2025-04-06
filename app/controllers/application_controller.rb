@@ -8,6 +8,10 @@ class ApplicationController < ActionController::Base
   # end
   before_action :configure_permitted_parameters, if: :devise_controller?
 
+  rescue from CanCan::AccessDenied do ||exception
+    redirect_to root_path, alert: exception.message 
+  end
+
   protected
 
   def configure_permitted_parameters
