@@ -1,7 +1,8 @@
 class PostsController < ApplicationController
-  load_and_authorize_resource
   before_action :set_user
   before_action :set_post, only: [:show, :destroy]
+  load_and_authorize_resource
+  
   def index
     @posts = @user.posts.includes(:comments)
   end
