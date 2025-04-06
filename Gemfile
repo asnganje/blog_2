@@ -70,4 +70,4 @@ gem "dotenv-rails", groups: [ :development, :test ]
 
 gem "cssbundling-rails", "~> 1.4"
 gem "devise"
-gem 'cancancan'
+gem "cancancan"

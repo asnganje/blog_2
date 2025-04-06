@@ -1,8 +1,8 @@
 class PostsController < ApplicationController
   before_action :set_user
-  before_action :set_post, only: [:show, :destroy]
+  before_action :set_post, only: [ :show, :destroy ]
   load_and_authorize_resource
-  
+
   def index
     @posts = @user.posts.includes(:comments)
   end
@@ -11,7 +11,6 @@ class PostsController < ApplicationController
     @post = @user.posts.new
   end
   def show
-    
   end
 
   def create
