@@ -13,6 +13,11 @@
   <div>
     <p><%=@post.text%></p>
   </div>
+  <div class="d-flex justify-content-center mb-2">
+    <%=link_to "Delete", user_post_path(@post.author, @post),
+    class:"btn btn-danger",
+    data: {turbo_method: :delete, confirm: "Are you sure?"}%>
+  </div>
 </div> 
   <h4 class="mt-2 mb-2">Comments...</h4>
   <div class="card mt-1">
