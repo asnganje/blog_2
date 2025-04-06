@@ -1,5 +1,8 @@
 class PostsController < ApplicationController
   before_action :set_user
+  before_action :set_post, only: [ :show, :destroy ]
+  load_and_authorize_resource
+
   def index
     @posts = @user.posts.includes(:comments)
   end
@@ -8,7 +11,6 @@ class PostsController < ApplicationController
     @post = @user.posts.new
   end
   def show
-    @post = @user.posts.find(params[:id])
   end
 
   def create
@@ -22,7 +24,17 @@ class PostsController < ApplicationController
       end
   end
 
+  def destroy
+      @post.destroy
+      redirect_to root_path, notice: "Post deleted successfully"
+  end
+
   private
+
+  def set_post
+    @post = @user.posts.find(params[:id])
+  end
+
   def set_user
     @user=User.find(params[:user_id])
   end
