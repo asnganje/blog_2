@@ -19,7 +19,9 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :users, only: [] do
-        resources :posts, only: [ :index ], controller: "user_posts"
+        resources :posts, only: [ :index ], controller: "user_posts" do
+          resources :comments, only: [ :index ], controller: "post_comments"
+        end
       end
     end
   end
