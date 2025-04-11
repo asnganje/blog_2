@@ -20,7 +20,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :users, only: [] do
         resources :posts, only: [ :index ], controller: "user_posts" do
-          resources :comments, only: [ :index ], controller: "post_comments"
+          resources :comments, only: [ :index, :create ], controller: "post_comments"
         end
       end
     end
