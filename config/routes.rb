@@ -16,4 +16,13 @@ Rails.application.routes.draw do
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
   # Defines the root path route ("/")
+  namespace :api do
+    namespace :v1 do
+      resources :users, only: [] do
+        resources :posts, only: [ :index ], controller: "user_posts" do
+          resources :comments, only: [ :index, :create ], controller: "post_comments"
+        end
+      end
+    end
+  end
 end
