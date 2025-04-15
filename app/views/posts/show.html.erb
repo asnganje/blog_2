@@ -1,41 +1,70 @@
-<h2>Post details</h2>
-<div class="card">
-  <div class="d-flex justify-content-between">
-    <h4><%= @post.title %> by <%= @post.author.name %></h4>
-    <h6 class="text-muted">Comments: <%=@post.comments_counter%>
-    <% if @post.likes.exists?(user: current_user) %>
-        <%= button_to "Unlike", user_post_like_path(@post.author, @post, @post.likes.find_by(user: current_user)), method: :delete, class: "btn btn-danger" %>
-      <% else %>
-        <%= button_to "Like", user_post_likes_path(@post.author, @post), method: :post, class: "btn btn-primary" %>
-    <% end %>
-    Likes: <%=@post.likes_counter%></h6>
-  </div>
-  <div>
-    <p><%=@post.text%></p>
-  </div>
-  <%if can? :destroy, @post %>
-  <div class="d-flex justify-content-center mb-2">
-    <%=link_to "Delete", user_post_path(@post.author, @post),
-    class:"btn btn-danger",
-    data: {turbo_method: :delete, confirm: "Are you sure?"}%>
-  </div>
-  <%end%>
-</div> 
-  <h4 class="mt-2 mb-2">Comments...</h4>
-  <div class="card mt-1">
-    <%@post.comments.each do |comment|%>
-      <p><%=comment.user.name%>: <%=comment.text%></p>
-    <%end%>
-  </div>
+<h2 class="text-center my-5 display-6 fw-bold text-primary-emphasis">📌 Post Details</h2>
 
-  <div class="card mt-2">
-    <%=form_with model: [@user, @post, @post.comments.build] do |f|%>
-      <div class="form-group">
-        <%=f.label :text, "Add a comment", class:"mb-2 mt-2"%>
-        <%=f.text_area :text, rows: 3, class:"form-control" %>
+<div class="card border-0 shadow-lg mb-5">
+  <div class="card-body">
+    <div class="d-flex justify-content-between align-items-start flex-wrap">
+      <div>
+        <h3 class="card-title fw-semibold mb-1"><%= @post.title %></h3>
+        <h6 class="text-muted">By <span class="text-dark fw-semibold"><%= @post.author.name %></span></h6>
       </div>
-      <div class="d-flex justify-content-center">
-        <%=f.submit class:"btn btn-primary ms-1 mb-2 mt-2"%>
+      <div class="text-end mt-2 mt-md-0">
+        <div class="d-flex align-items-center justify-content-end gap-2">
+          <% if @post.likes.exists?(user: current_user) %>
+            <%= button_to "❤️ Unlike", user_post_like_path(@post.author, @post, @post.likes.find_by(user: current_user)), 
+                  method: :delete, class: "btn btn-outline-danger btn-sm" %>
+          <% else %>
+            <%= button_to "👍 Like", user_post_likes_path(@post.author, @post), 
+                  method: :post, class: "btn btn-outline-primary btn-sm" %>
+          <% end %>
+          <span class="text-muted small">Likes: <%= @post.likes_counter %></span>
+        </div>
+        <div class="text-muted small mt-1">💬 Comments: <%= @post.comments_counter %></div>
+      </div>
+    </div>
+
+    <hr class="my-2">
+
+    <div class="mb-2">
+      <p class="lead"><%= @post.text %></p>
+    </div>
+
+    <% if can?(:destroy, @post) %>
+      <div class="text-center mt-4">
+        <%= link_to "🗑️ Delete Post", user_post_path(@post.author, @post),
+                    class: "btn btn-danger px-4", 
+                    data: { turbo_method: :delete, confirm: "Are you sure you want to delete this post?" } %>
       </div>
     <% end %>
   </div>
+</div>
+
+<h4 class="mb-4 text-primary fw-bold">💬 Comments</h4>
+
+<div class="card border-0 shadow-sm mb-3">
+  <div class="card-body">
+    <% if @post.comments.any? %>
+      <% @post.comments.each do |comment| %>
+        <div class="mb-3 pb-2 border-bottom">
+          <p class="mb-1"><strong class="text-dark"><%= comment.user.name %></strong></p>
+          <p class="mb-0 text-muted"><%= comment.text %></p>
+        </div>
+      <% end %>
+    <% else %>
+      <p class="text-muted text-center">No comments yet. Be the first to comment!</p>
+    <% end %>
+  </div>
+</div>
+
+<div class="card border-0 shadow-sm mb-5">
+  <div class="card-body">
+    <%= form_with model: [@user, @post, @post.comments.build], local: true do |f| %>
+      <div class="form-group mb-3">
+        <%= f.label :text, "Add a comment", class: "form-label fw-semibold" %>
+        <%= f.text_area :text, rows: 4, class: "form-control", placeholder: "Share your thoughts..." %>
+      </div>
+      <div class="text-end">
+        <%= f.submit "Submit", class: "btn btn-primary px-4" %>
+      </div>
+    <% end %>
+  </div>
+</div>
