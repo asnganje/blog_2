@@ -1,46 +1,66 @@
-<h2 class="my-4 text-center fw-bold fs-2">User Posts</h2>
+<!-- Header Section -->
+<div class="d-flex justify-content-between align-items-center my-5 flex-wrap gap-3">
+  <h2 class="fw-bold display-6 text-primary d-flex align-items-center gap-2">
+    📝 User Posts
+  </h2>
+  <%= link_to "➕ Add New Post", new_user_post_path(current_user.id), class: "btn btn-primary px-4 py-2 shadow" %>
+</div>
 
-<div class="card mb-4 shadow-sm rounded-4 d-flex flex-row flex-wrap">
-  <div class="col-4 p-0">
-    <%= image_tag "https://ui-avatars.com/api/?name=#{ERB::Util.url_encode(@user.name)}&background=0D8ABC&color=fff",
-        class: "img-fluid rounded-start h-100 object-fit-cover",
-        alt: "#{@user.name}'s avatar" %>
-  </div>
-  <div class="col-8 p-4 d-flex flex-column justify-content-between">
-    <h5 class="fw-bold fs-4 mb-2"><%= @user.name %></h5>
-    <div class="text-end mt-auto">
-      <%= link_to "Number of Posts", user_posts_path(@user), class: "text-muted text-decoration-none fw-semibold" %>:
-      <span class="badge bg-secondary"><%= @user.posts_counter %></span>
+<!-- User Profile Card -->
+<div class="card mb-5 shadow-sm rounded-4 border-0">
+  <div class="row g-0 align-items-center">
+    <div class="col-md-4 text-center bg-light py-4">
+      <%= image_tag "https://ui-avatars.com/api/?name=#{ERB::Util.url_encode(@user.name)}&background=0D8ABC&color=fff",
+          class: "rounded-circle border border-2",
+          alt: "#{@user.name}'s avatar",
+          style: "width: 120px; height: 120px; object-fit: cover;" %>
+    </div>
+    <div class="col-md-8 p-4">
+      <h4 class="fw-bold fs-4 mb-3"><%= @user.name %></h4>
+      <div>
+        <%= link_to "Total Posts", user_posts_path(@user), class: "text-decoration-none text-muted fw-medium" %>
+        <span class="badge bg-secondary ms-2"><%= @user.posts_counter %></span>
+      </div>
     </div>
   </div>
 </div>
 
+<!-- Posts List -->
 <div class="mt-4">
   <% @posts.each do |post| %>
-    <div class="card mb-3 shadow-sm rounded-4 p-4">
-      <div class="d-flex justify-content-between align-items-center mb-2">
-        <h3 class="fs-3 fw-bold mb-0">
-          <%= link_to post.title, user_post_path(post.author, post), class: "text-decoration-none text-dark" %>
-        </h3>
-        <small class="text-muted">By <%= post.author.name %></small>
-      </div>
-
-      <p class="fs-5 mb-3"><%= post.text %></p>
-
-      <div class="text-end text-muted small">
-        Comments: <%= post.comments_counter %> &nbsp;|&nbsp; Likes: <%= post.likes_counter %>
-      </div>
-
-      <% if post.comments.any? %>
-        <hr>
-        <div class="mt-3">
-          <% post.comments.each do |comment| %>
-            <div class="mb-2 ps-3 border-start border-2 border-primary">
-              <strong><%= comment.user.name %>:</strong> <%= comment.text %>
-            </div>
-          <% end %>
+    <div class="card mb-4 shadow-sm rounded-4 border-0">
+      <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <h3 class="fs-5 fw-bold mb-0">
+            <%= link_to post.title, user_post_path(post.author, post), class: "text-decoration-none text-dark" %>
+          </h3>
+          <small class="text-muted fst-italic">By <%= post.author.name %></small>
         </div>
-      <% end %>
+
+        <p class="fs-6 text-secondary mb-3"><%= truncate(post.text, length: 200) %></p>
+
+        <div class="d-flex justify-content-between align-items-center text-muted small">
+          <div>
+            💬 <%= pluralize(post.comments_counter, "Comment") %> |
+            ❤️ <%= pluralize(post.likes_counter, "Like") %>
+          </div>
+          <div class="d-flex gap-2">
+            <%= link_to "View", user_post_path(post.author, post), class: "btn btn-sm btn-outline-primary" %>
+            <%= link_to "Comment", user_post_path(post.author, post, anchor: "comment-form"), class: "btn btn-sm btn-outline-secondary" %>
+          </div>
+        </div>
+
+        <% if post.comments.any? %>
+          <hr class="my-3">
+          <div class="mb-2">
+            <% post.comments.each do |comment| %>
+              <div class="mb-2 ps-3 border-start border-3 border-primary">
+                <strong><%= comment.user.name %>:</strong> <%= comment.text %>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
     </div>
   <% end %>
 </div>

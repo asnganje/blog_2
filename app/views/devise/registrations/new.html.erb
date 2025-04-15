@@ -1,37 +1,39 @@
-<div class="d-flex flex-column align-items-center justify-content-center p-3 bg-white rounded-4 shadow-sm mt-4" style="max-width: 400px; margin: auto;">
-  <h2 class="text-primary mb-4 fw-bold">Sign up</h2>
+<div class="d-flex flex-column align-items-center justify-content-center p-4 bg-light rounded-4 shadow-lg mt-3 mb-4 border border-2 border-primary-subtle"
+     style="max-width: 450px; margin: auto;">
+  <h2 class="text-primary mb-4 fw-bold fs-3">📝 Create an Account</h2>
 
-  <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "w-100" }) do |f| %>
     <%= render "devise/shared/error_messages", resource: resource %>
 
-    <div class="mb-1 w-100">
-      <%= f.label :name %><br />
-      <%= f.text_field :name, autofocus: true, autocomplete: "name" %>
+    <div class="mb-3">
+      <%= f.label :name, class: "form-label fw-semibold text-secondary" %>
+      <%= f.text_field :name, autofocus: true, autocomplete: "name", class: "form-control rounded-pill shadow-sm py-2 px-3" %>
     </div>
 
-    <div class="mb-1 w-100">
-      <%= f.label :email, class: "form-label fw-semibold" %><br />
-      <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    <div class="mb-3">
+      <%= f.label :email, class: "form-label fw-semibold text-secondary" %>
+      <%= f.email_field :email, autocomplete: "email", class: "form-control rounded-pill shadow-sm py-2 px-3" %>
     </div>
 
-    <div class="field">
-      <%= f.label :password, class: "form-label fw-semibold" %>
+    <div class="mb-3">
+      <%= f.label :password, class: "form-label fw-semibold text-secondary" %>
       <% if @minimum_password_length %>
-      <em>(<%= @minimum_password_length %> characters minimum)</em>
-      <% end %><br />
-      <%= f.password_field :password, autocomplete: "new-password" %>
+        <div class="form-text mb-1 text-muted">At least <%= @minimum_password_length %> characters</div>
+      <% end %>
+      <%= f.password_field :password, autocomplete: "new-password", class: "form-control rounded-pill shadow-sm py-2 px-3" %>
     </div>
 
-    <div class="field">
-      <%= f.label :password_confirmation, class: "form-label fw-semibold" %><br />
-      <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+    <div class="mb-3">
+      <%= f.label :password_confirmation, class: "form-label fw-semibold text-secondary" %>
+      <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control rounded-pill shadow-sm py-2 px-3" %>
     </div>
 
-  <div class="actions d-flex justify-content-center mt-3">
-    <%= f.submit "Sign up", class: "btn bg-primary-subtle btn-lg w-60" %>
-  </div>
+    <div class="text-center mt-4">
+      <%= f.submit "Sign Up", class: "btn btn-primary w-100 rounded-pill py-2 fw-bold shadow-sm" %>
+    </div>
   <% end %>
-  <div class="mt-1 w-100 text-center">
+
+  <div class="mt-4 w-100 text-center small">
     <%= render "devise/shared/links" %>
   </div>
 </div>
