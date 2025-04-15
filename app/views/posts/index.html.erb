@@ -1,26 +1,46 @@
-<h2>User Posts Listings</h2><br/>
-<div class="card f-flex flex-row w-100">
-  <div class="w-33" style="flex: 1; overflow: hidden;">
-    <img src="..." class="card-img-top" alt="..." style="width: 100%; height: auto;">
+<h2 class="my-4 text-center fw-bold fs-2">User Posts</h2>
+
+<div class="card mb-4 shadow-sm rounded-4 d-flex flex-row flex-wrap">
+  <div class="col-4 p-0">
+    <%= image_tag "https://ui-avatars.com/api/?name=#{ERB::Util.url_encode(@user.name)}&background=0D8ABC&color=fff",
+        class: "img-fluid rounded-start h-100 object-fit-cover",
+        alt: "#{@user.name}'s avatar" %>
   </div>
-  <div class="card-body d-flex flex-column justify-content-between h-100" style="width: 66.66%; padding: 1rem;">
-    <h5 class="card-title">
-      <p class="text-decoration-none fs-4 fw-bold"><%=@user.name%></p>
-    </h5>
-    <h6 class="text-end text-muted"><%= link_to "Number of Posts", user_posts_path(@user) %>: <%=@user.posts_counter %></h6>
+  <div class="col-8 p-4 d-flex flex-column justify-content-between">
+    <h5 class="fw-bold fs-4 mb-2"><%= @user.name %></h5>
+    <div class="text-end mt-auto">
+      <%= link_to "Number of Posts", user_posts_path(@user), class: "text-muted text-decoration-none fw-semibold" %>:
+      <span class="badge bg-secondary"><%= @user.posts_counter %></span>
+    </div>
   </div>
 </div>
-<div>
+
+<div class="mt-4">
   <% @posts.each do |post| %>
-      <div class="card mt-1 mb-1">
-        <h3><%= link_to post.title, user_post_path(post.author, post)%><h3>
-        <h4><%= post.text %><h3>
-        <h6 class="text-end text-muted">Comments: <%=post.comments_counter%> Likes: <%=post.likes_counter%></h6>
+    <div class="card mb-3 shadow-sm rounded-4 p-4">
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        <h3 class="fs-3 fw-bold mb-0">
+          <%= link_to post.title, user_post_path(post.author, post), class: "text-decoration-none text-dark" %>
+        </h3>
+        <small class="text-muted">By <%= post.author.name %></small>
       </div>
-        <%post.comments.each do |comment| %>
-      <div class="card mt-1 mb-1">
-        <p><%=comment.user.name%>: <%=comment.text%></p>
-        <%end%>
+
+      <p class="fs-5 mb-3"><%= post.text %></p>
+
+      <div class="text-end text-muted small">
+        Comments: <%= post.comments_counter %> &nbsp;|&nbsp; Likes: <%= post.likes_counter %>
       </div>
+
+      <% if post.comments.any? %>
+        <hr>
+        <div class="mt-3">
+          <% post.comments.each do |comment| %>
+            <div class="mb-2 ps-3 border-start border-2 border-primary">
+              <strong><%= comment.user.name %>:</strong> <%= comment.text %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
   <% end %>
 </div>
