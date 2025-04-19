@@ -7,7 +7,10 @@
     <%= f.label :name %><br />
     <%= f.text_field :name, autofocus: true, autocomplete: "name" %>
   </div>
-
+  <div class="mb-3">
+    <%= f.label :email, class: "form-label fw-semibold text-secondary" %>
+    <%= f.email_field :email, autocomplete: "email", class: "form-control rounded-pill shadow-sm py-2 px-3" %>
+  </div>
   <div class="field">
     <%= f.label :email %><br />
     <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
